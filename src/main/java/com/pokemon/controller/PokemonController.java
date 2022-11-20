@@ -220,7 +220,7 @@ public interface PokemonController {
 							name = "type2",
 							allowEmptyValue = true,
 							required = false,
-							description = "Enter a second type (if any)"),
+							description = "Enter a Second type (if any)"),
 					@Parameter(
 							name = "pokemonEvo",
 							allowEmptyValue = false,

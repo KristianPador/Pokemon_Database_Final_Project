@@ -41,7 +41,7 @@ public class DefaultPokemonService implements PokemonService {
 	public Optional<Pokemon> createPokemon(String name, String pokemonSpecies, int pokemonGen, PokemonType type1,
 			PokemonType type2, Evolution pokemonEvo) {
 		log.debug("The createPokemon method was called with pokemonName={}, pokemonSpecies={}, pokemonGen={},"
-				+ " type1={}, type2={}, pokemonEvo={}");
+				+ " type1={}, type2={}, pokemonEvo={}", name, pokemonSpecies, pokemonGen, type1, type2, pokemonEvo);
 		return pokemonDao.createPokemon(name, pokemonSpecies, pokemonGen, type1, type2, pokemonEvo);
 	}
 

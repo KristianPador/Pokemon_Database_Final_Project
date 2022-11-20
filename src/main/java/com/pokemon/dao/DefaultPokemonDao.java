@@ -30,8 +30,7 @@ public class DefaultPokemonDao implements PokemonDao {
 		log.info("DAO: pokemonName={} type1={}, pokemonGen={}", name, type1, pokemonGen);
 		
 		//@formatter:off
-		String sql = ""
-				+ "SELECT * "
+		String sql = "SELECT * "
 				+ "FROM pokemon "
 				+ "WHERE pokemon_name = :pokemon_name AND pokemon_type1 = :pokemon_type1 AND pokemon_generation = :pokemon_generation";
 		//@formatter:on
@@ -60,16 +59,14 @@ public class DefaultPokemonDao implements PokemonDao {
 	}
 
 	@Override
-	public Optional<Pokemon> createPokemon(String name, String pokemonSpecies, int pokemonGen, PokemonType type1,
-			PokemonType type2, Evolution pokemonEvo) {
+	public Optional<Pokemon> createPokemon(String name, String pokemonSpecies, int pokemonGen, PokemonType type1, PokemonType type2, Evolution pokemonEvo) {
 		
 		log.info("DAO: pokemonName={}, pokemonSpecies={}, pokemonGen={}, type1={}, type2={}, pokemonEvo={}", name, pokemonSpecies, pokemonGen, type1, type2, pokemonEvo);
-		
+
 		//@formatter:off
-		String sql = " "
-				+ "INSERT INTO pokemon "
+		String sql = "INSERT INTO pokemon "
 				+ "(pokemon_name, pokemon_species, pokemon_generation, pokemon_type1, pokemon_type2, pokemon_evolution) VALUES "
-				+ "(:pokemon_name, :pokemon_species, :pokemon_generation, :pokemon_type1, :pokemon_type2, :pokemon_evolution)";
+				+ "(:pokemon_name, :pokemon_species, :pokemon_generation, :pokemon_type1, :pokemon_type2, :pokemon_evolution) ";
 		//@formatter:on
 		
 		Map<String, Object> params = allParamsToHashMap(name, pokemonSpecies, pokemonGen, type1, type2, pokemonEvo);
@@ -90,7 +87,7 @@ public class DefaultPokemonDao implements PokemonDao {
 	@Override
 	public Optional<Pokemon> updatePokemon(String name, String pokemonSpecies, int pokemonGen, PokemonType type1,
 			PokemonType type2, Evolution pokemonEvo) {
-		log.info("DAO: pokemonName={}, pokemonSpecies={}, pokemonGen={}, type1={}, type2={}, pokemonEvo={}", pokemonSpecies, pokemonGen, type1, type2, pokemonEvo);
+		log.info("DAO: pokemonName={}, pokemonSpecies={}, pokemonGen={}, type1={}, type2={}, pokemonEvo={}", name, pokemonSpecies, pokemonGen, type1, type2, pokemonEvo);
 
 		//@formatter:off
 		String sql = " "
@@ -98,6 +95,11 @@ public class DefaultPokemonDao implements PokemonDao {
 				+ "SET pokemon_species = :pokemon_species, pokemon_generation = :pokemon_generation, pokemon_type1 = :pokemon_type1, "
 				+ "pokemone_type2 = :pokemon_type2, pokemon_evolution = :pokemon_evolution "
 				+ "WHERE pokemon_name = :pokemon_name";
+		
+		Map<String, Object> params = allParamsToHashMap(name, pokemonSpecies, pokemonGen, type1, type2, pokemonEvo);
+
+		jdbcTemplate.update(sql, params);
+		
 		return Optional.ofNullable(Pokemon.builder()
 				.pokemonName(name)
 				.pokemonSpecies(pokemonSpecies)
@@ -114,9 +116,9 @@ public class DefaultPokemonDao implements PokemonDao {
 		params.put("pokemon_name", name);
 		params.put("pokemon_species", pokemonSpecies);
 		params.put("pokemon_generation", pokemonGen);
-		params.put("pokemon_type1", type1);
+		params.put("pokemon_type1", type1.toString());
 		params.put("pokemon_type2", type2);
-		params.put("pokemon_evolution", pokemonEvo);
+		params.put("pokemon_evolution", pokemonEvo.toString());
 		return params;
 	}
 	
