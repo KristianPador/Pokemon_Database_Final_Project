@@ -1,0 +1,6 @@
+package com.pokemon.entity;
+
+public enum PokemonType {
+	NORMAL, GRASS, WATER, FIRE, ELECTRIC, ICE, BUG, POISON, DRAGON, FLYING, FIGHTING, DARK, GHOST,
+	FAIRY, PSYCHIC, STEEL, GROUND, ROCK
+}
